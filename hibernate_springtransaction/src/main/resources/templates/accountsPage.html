@@ -19,14 +19,14 @@
  
     <table border="1">
             <tr>
-                <th>ID</th>
+                <th>GPA</th>
                 <th>Full Name</th>
-                <th>Balance</th>
+                <th>Email</th>
             </tr>
             <tr th:each="accountInfo : ${accountInfos}">
-                <td th:utext="${accountInfo.id}">..</td>
-                <td th:utext="${accountInfo.fullName}">..</td>
-                <td th:utext="${accountInfo.balance}">..</td>
+                <td th:utext="${accountInfo.gpa}">..</td>
+                <td th:utext="${accountInfo.name}">..</td>
+                <td th:utext="${accountInfo.email}">..</td>
             </tr>
      
         </table>

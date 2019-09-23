@@ -9,9 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springboot.hibernate.dao.BankAccountDAO;
+import springboot.hibernate.dao.CandidateDAO;
+import springboot.hibernate.entity.Candidate;
 import springboot.hibernate.exception.BankTransactionException;
 import springboot.hibernate.form.SendMoneyForm;
 import springboot.hibernate.model.BankAccountInfo;
+import springboot.hibernate.service.CandidateService;
 
 @Controller
 public class MainController {
@@ -19,9 +22,23 @@ public class MainController {
     @Autowired
     private BankAccountDAO bankAccountDAO;
 
+    @Autowired
+    private CandidateDAO candidateDAO;
+    @Autowired
+    private CandidateService candidateService;
+
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String showBankAccounts(Model model) {
+//        List<BankAccountInfo> list = bankAccountDAO.listBankAccountInfo();
+//
+//        model.addAttribute("accountInfos", list);
+//
+//        return "accountsPage";
+//    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showBankAccounts(Model model) {
-        List<BankAccountInfo> list = bankAccountDAO.listBankAccountInfo();
+        List<Candidate> list = candidateService.findAll();
 
         model.addAttribute("accountInfos", list);
 
