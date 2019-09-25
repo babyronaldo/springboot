@@ -55,6 +55,11 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
+	public void delete(int id) {
+		candidateDAO.delete(id);
+	}
+
+	@Override
 	public void save(Candidate candidate) {
 		// TODO Auto-generated method stub
 		candidateDAO.save(candidate);

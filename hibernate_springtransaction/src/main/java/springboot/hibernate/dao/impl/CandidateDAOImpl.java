@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import java.sql.Statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import springboot.hibernate.dao.CandidateDAO;
 import springboot.hibernate.entity.Candidate;
+import springboot.hibernate.entity.Interview;
 
 @Repository("candidateDAO")
 public class CandidateDAOImpl implements CandidateDAO {
@@ -51,13 +53,11 @@ public class CandidateDAOImpl implements CandidateDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Candidate> findAll() {
-//		String sql = "Select new " + Candidate.class.getName() //
-//				+ "(c.gpa, c.name, c.email) " //
-//				+ " from " + Candidate.class.getName() + " c ";
-//		Session session = this.sessionFactory.getCurrentSession();
-//		Query<Candidate> query = session.createQuery(sql, Candidate.class);
-//		return query.getResultList();
-        return sessionFactory.getCurrentSession().createCriteria(Candidate.class).list();
+		String query = "from Candidate c where c.isDeleted is null";
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Candidate> candidateList = session.createQuery(query, Candidate.class).getResultList();
+        return candidateList;
+//        return sessionFactory.getCurrentSession().createCriteria(Candidate.class).list();
     }
 
     @Override
@@ -84,6 +84,15 @@ public class CandidateDAOImpl implements CandidateDAO {
         criteria.setMaxResults(result);
         List<Candidate> candidate = (List<Candidate>) criteria.list();
         return candidate;
+    }
+
+    @Override
+    public void delete(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        String queryString = "UPDATE Candidate c SET c.isDeleted = 1 WHERE c.candidateId = :id";
+        Query query = session.createQuery(queryString);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override

@@ -41,6 +41,7 @@ public class Candidate implements java.io.Serializable
 	private String address;
 	private String degree;
 	private Set<Interview> interviews = new HashSet<Interview>(0);
+	private Boolean isDeleted;
 
 	public Candidate()
 	{
@@ -80,7 +81,7 @@ public class Candidate implements java.io.Serializable
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "candidateID", unique = true, nullable = false)
+	@Column(name = "candidateId", unique = true, nullable = false)
 	public Integer getCandidateId()
 	{
 		return this.candidateId;
@@ -224,4 +225,12 @@ public class Candidate implements java.io.Serializable
 		this.interviews = interviews;
 	}
 
+	@Column(name = "isDeleted")
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		isDeleted = isDeleted;
+	}
 }

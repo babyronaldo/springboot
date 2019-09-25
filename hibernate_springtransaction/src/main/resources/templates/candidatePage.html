@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate List</title>
+     
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+     
+</head>
+ 
+<body>
+    <!-- Include _menu.html -->
+    
+<th:block th:include="/_menu"></th:block>
+<table border="1">            
+    <tr>                    
+        <th>Id</th>                    
+        <th>GPA</th>                    
+        <th>Full Name</th>                    
+        <th>Email</th>
+        <th>Action</th>                
+    </tr>            
+    <tr th:each="candidate : ${candidateList}">             
+        <td th:utext="${candidate.candidateId}">..</td>                    
+        <td th:utext="${candidate.gpa}">..</td>                    
+        <td th:utext="${candidate.name}">..</td>                    
+        <td th:utext="${candidate.email}">..</td>
+        <td>
+            <a th:href="@{/editCandidate}">Edit</a>
+            <a th:href="@{'/candidateDetail/' + ${candidate.candidateId}}">Details</a>
+            <a th:href="@{'/delete/' + ${candidate.candidateId}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

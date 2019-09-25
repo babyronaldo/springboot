@@ -3,17 +3,16 @@ package springboot.hibernate.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springboot.hibernate.dao.BankAccountDAO;
-import springboot.hibernate.dao.CandidateDAO;
 import springboot.hibernate.entity.Candidate;
 import springboot.hibernate.exception.BankTransactionException;
 import springboot.hibernate.form.SendMoneyForm;
-import springboot.hibernate.model.BankAccountInfo;
 import springboot.hibernate.service.CandidateService;
 
 @Controller
@@ -21,28 +20,35 @@ public class MainController {
 
     @Autowired
     private BankAccountDAO bankAccountDAO;
-
-    @Autowired
-    private CandidateDAO candidateDAO;
     @Autowired
     private CandidateService candidateService;
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String showBankAccounts(Model model) {
-//        List<BankAccountInfo> list = bankAccountDAO.listBankAccountInfo();
-//
-//        model.addAttribute("accountInfos", list);
-//
-//        return "accountsPage";
-//    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showBankAccounts(Model model) {
+    public String candidateList(Model model) {
         List<Candidate> list = candidateService.findAll();
+        model.addAttribute("candidateList", list);
 
-        model.addAttribute("accountInfos", list);
+        return "candidatePage";
+    }
 
-        return "accountsPage";
+    @RequestMapping(value = "/candidateDetail/{id}", method = RequestMethod.GET)
+    public String candidateDetail(@PathVariable(value = "id") int id, ModelMap modelMap) {
+        modelMap.addAttribute("candidate", candidateService.find(id));
+
+        return "candidateDetail";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable(value = "id") int id) {
+        // Interview interview = new Interview();
+        if (candidateService.find(id) == null) {
+            return "redirect:/403.html";
+        } else {
+            candidateService.delete(id);
+        }
+
+//        return "redirect:/candidatePage.html";
+        return "candidatePage";
     }
 
     @RequestMapping(value = "/sendMoney", method = RequestMethod.GET)

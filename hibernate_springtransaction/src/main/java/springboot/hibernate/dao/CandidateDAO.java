@@ -19,6 +19,8 @@ public interface CandidateDAO {
 
     public List<Candidate> viewAllCandidate(int result, int offsetreal);
 
+    public void delete(int id);
+
     void save(Candidate candidate);
 
     int getSize();

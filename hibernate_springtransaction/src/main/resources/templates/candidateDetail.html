@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate Info</title>     
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>     
+</head> 
+<body>
+    <!-- Include _menu.html -->
+    
+<th:block th:include="/_menu"></th:block>
+ 
+    <h2>Candidate Information</h2>
+    
+<table border="1">
+    <tr>            
+        <th>Name</th>                    
+        <th>Email</th>
+        <th>Day of birth</th>                    
+        <th>Phone</th>
+        <th>Address</th>
+        <th>University</th>                    
+        <th>GPA</th>
+    </tr>
+        <td th:utext="${candidate.name}">..</td>                    
+        <td th:utext="${candidate.email}">..</td>
+        <td th:utext="${candidate.dayOfBirth}">..</td>                    
+        <td th:utext="${candidate.phone}">..</td>                    
+        <td th:utext="${candidate.address}">..</td>
+        <td th:utext="${candidate.uniName}">..</td>
+        <td th:utext="${candidate.gpa}">..</td> 
+        
+</table>
+</body>
+</html>
