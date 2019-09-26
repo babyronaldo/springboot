@@ -1,13 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Candidate Info</title>     
+    <title>Candidate Info</title>  
     <style>
         th, td {
                 padding: 5px;
         }
-    </style>     
-</head> 
+    </style>
+     
+</head>
+ 
 <body>
     <!-- Include _menu.html -->
     
@@ -17,22 +19,44 @@
     
 <table border="1">
     <tr>            
-        <th>Name</th>                    
+        <th>Candidate Id</th>
+        <th>Name</th>
+        <th>Skill</th>
+        <th>University</th>
+        <th>GPA</th>
+        <th>Graduated Year</th>
+        <th>Day of birth</th>
         <th>Email</th>
-        <th>Day of birth</th>                    
         <th>Phone</th>
         <th>Address</th>
-        <th>University</th>                    
-        <th>GPA</th>
+        <th>Degree</th>
+        <th>Is Deleted</th>
     </tr>
-        <td th:utext="${candidate.name}">..</td>                    
-        <td th:utext="${candidate.email}">..</td>
-        <td th:utext="${candidate.dayOfBirth}">..</td>                    
-        <td th:utext="${candidate.phone}">..</td>                    
-        <td th:utext="${candidate.address}">..</td>
-        <td th:utext="${candidate.uniName}">..</td>
-        <td th:utext="${candidate.gpa}">..</td> 
-        
+    <td th:utext="${candidate.candidateId}">..</td>
+    <td th:utext="${candidate.name}">..</td>
+    <td th:utext="${candidate.skill}">..</td>
+    <td th:utext="${candidate.uniName}">..</td>
+    <td th:utext="${candidate.gpa}">..</td>
+    <td th:utext="${candidate.graduateYear}">..</td>
+    <td th:utext="${candidate.dayOfBirth}">..</td>
+    <td th:utext="${candidate.email}">..</td>
+    <td th:utext="${candidate.phone}">..</td>
+    <td th:utext="${candidate.address}">..</td>
+    <td th:utext="${candidate.degree}">..</td>
+    <td th:utext="${candidate.isDeleted}">..</td>
 </table>
+<form th:action="@{/candidateDetail}" th:object="${candidate}" method="POST">
+    <fieldset>
+        <p th:text="*{candidateId}" th:readonly></p>
+        <p th:text="*{name}"></p>
+        <p th:text="*{skill}"></p>
+
+        <input type="text" th:field="*{email}" th:value="*{email}" />
+        <input type="text" th:field="*{phone}" th:value="*{phone}" />
+        <input type="text" th:field="*{address}" th:value="*{address}" />
+
+        <input type="submit" value="SAVE" />
+    </fieldset>
+</form>
 </body>
 </html>
