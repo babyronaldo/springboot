@@ -45,15 +45,20 @@
     <td th:utext="${candidate.degree}">..</td>
     <td th:utext="${candidate.isDeleted}">..</td>
 </table>
-<form th:action="@{/candidateDetail}" th:object="${candidate}" method="POST">
+<form th:action="@{/candidateDetail}" th:object="${candidate}" th:method="POST">
     <fieldset>
-        <p th:text="*{candidateId}" th:readonly></p>
-        <p th:text="*{name}"></p>
-        <p th:text="*{skill}"></p>
-
+        <input type="text" th:field="*{candidateId}" th:value="*{candidateId}" th:readonly="true" th:hidden="true"/>
+        <input type="text" th:field="*{name}" th:value="*{name}" />
+        <input type="text" th:field="*{skill}" th:value="*{skill}" />
+        <input type="text" th:field="*{uniName}" th:value="*{uniName}" />
+        <input type="text" th:field="*{gpa}" th:value="*{gpa}" />
+        <input type="text" th:field="*{graduateYear}" th:value="*{graduateYear}" />
+        <input type="text" th:field="*{dayOfBirth}" th:value="dayOfBirth" />
+        <input type="text" th:field="*{degree}" th:value="*{degree}" />
         <input type="text" th:field="*{email}" th:value="*{email}" />
         <input type="text" th:field="*{phone}" th:value="*{phone}" />
         <input type="text" th:field="*{address}" th:value="*{address}" />
+        <input type="text" th:field="*{isDeleted}" th:value="*{isDeleted}" />
 
         <input type="submit" value="SAVE" />
     </fieldset>

@@ -1,16 +1,17 @@
 package springboot.hibernate.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springboot.hibernate.dao.BankAccountDAO;
 import springboot.hibernate.entity.Candidate;
@@ -44,8 +45,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/candidateDetail", method = RequestMethod.POST)
-    public String edit(@ModelAttribute(value = "candidate") @Valid Candidate candidate, BindingResult bindingResult,
-                       final RedirectAttributes redirectAttributes) {
+    public String edit(@ModelAttribute(value = "candidate") Candidate candidate) {
 //		CandidateValidator candidateValidator = new CandidateValidator();
 //		candidateValidator.validate(candidate, bindingResult);
 //        if (bindingResult.hasErrors()) {
@@ -57,7 +57,6 @@ public class MainController {
             // Manager m = this.managerService.findManagerbyUserName(name);
             // candidate.setManager(m);
             candidateService.edit(candidate);
-            redirectAttributes.addFlashAttribute("message", "Save Applicant Successful");
             return "redirect:/";
 //        }
     }
@@ -99,5 +98,8 @@ public class MainController {
         }
         return "redirect:/";
     }
-
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
 }
