@@ -45,7 +45,7 @@
     <td th:utext="${candidate.degree}">..</td>
     <td th:utext="${candidate.isDeleted}">..</td>
 </table>
-<form th:action="@{/candidateDetail}" th:object="${candidate}" th:method="POST">
+<form th:action="@{/candidateEdit}" th:object="${candidate}" th:method="POST">
     <fieldset>
         <input type="text" th:field="*{candidateId}" th:value="*{candidateId}" th:readonly="true" th:hidden="true"/>
         <input type="text" th:field="*{name}" th:value="*{name}" />

@@ -36,6 +36,12 @@ public class CandidateController {
     // @Autowired(required = true)
     // private CandidateValidator candidateValidator;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String homePage() {
+
+        return "candidatePage";
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     // public String index(ModelMap modelMap, int offset)
     // {
@@ -191,50 +197,51 @@ public class CandidateController {
     // return "redirect:/interview.html";
     // }
 
+    //    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+//    public String delete(@PathVariable(value = "id") int id) {
+//        // Interview interview = new Interview();
+//        if (candidateService.find(id) == null) {
+//            return "redirect:/403.html";
+//        } else {
+//            candidateService.delete(id);
+//        }
+//        return "redirect:/candidate.html";
+//    }
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable(value = "id") int id) {
+    public String delete(@PathVariable(value = "id") int id, final RedirectAttributes redirectAttributes) {
         // Interview interview = new Interview();
         if (candidateService.find(id) == null) {
             return "redirect:/403.html";
         } else {
             candidateService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "Delete Applicant Successful");
         }
-        return "redirect:/candidate.html";
+        return "redirect:/candidate";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable(value = "id") int id, ModelMap modelMap) {
+    public String candidateDetail(@PathVariable(value = "id") int id, ModelMap modelMap) {
         modelMap.addAttribute("candidate", candidateService.find(id));
 
-        if (candidateService.find(id) == null) {
-            return "redirect:/403.html";
-        } else {
-            candidateService.edit(candidateService.find(id));
-        }
-
-        // modelMap.addAttribute("listManager", managerService.findAll());
-        return "editCandidate";
+        return "candidateEdit";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@ModelAttribute(value = "candidate") @Valid Candidate candidate, BindingResult bindingResult,
-                       final RedirectAttributes redirectAttributes) {
+    public String edit(@ModelAttribute(value = "candidate") Candidate candidate) {
 //		CandidateValidator candidateValidator = new CandidateValidator();
 //		candidateValidator.validate(candidate, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "editCandidate";
-        } else {
-            // Authentication auth =
-            // SecurityContextHolder.getContext().getAuthentication();
-            // String name = auth.getName();
-            // Manager m = this.managerService.findManagerbyUserName(name);
-            // candidate.setManager(m);
-            candidateService.edit(candidate);
-            redirectAttributes.addFlashAttribute("message", "Save Applicant Successful");
-            return "redirect:/candidate.html";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "candidateDetail";
+//        } else {
+        // Authentication auth =
+        // SecurityContextHolder.getContext().getAuthentication();
+        // String name = auth.getName();
+        // Manager m = this.managerService.findManagerbyUserName(name);
+        // candidate.setManager(m);
+        candidateService.edit(candidate);
+        return "redirect:/candidateEdit";
+//        }
     }
-
     // @RequestMapping(value = "*", method = RequestMethod.GET)
     // public String welcome(ModelMap modelMap)
     // {
