@@ -85,8 +85,9 @@ public class Interview implements java.io.Serializable {
         this.interviewId = interviewId;
     }
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // cascadeALL means that when modify Interview -> modify its owning relationship
+
+    @ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
     @JoinColumn(name = "candidateId", referencedColumnName = "candidateId", nullable = false, insertable = false, updatable = false)
     public Candidate getCandidate() {
         return this.candidate;
@@ -96,8 +97,7 @@ public class Interview implements java.io.Serializable {
         this.candidate = candidate;
     }
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
     @JoinColumn(name = "interviewerId", referencedColumnName = "interviewerId", nullable = false, insertable = false, updatable = false)
     public Interviewer getInterviewer() {
         return this.interviewer;
@@ -205,6 +205,7 @@ public class Interview implements java.io.Serializable {
         isDeleted = deleted;
     }
 
+    @NotNull
     @Column(name = "candidateId")
     public int getCandidateId() {
         return candidateId;
@@ -214,6 +215,7 @@ public class Interview implements java.io.Serializable {
         this.candidateId = candidateId;
     }
 
+    @NotNull
     @Column(name = "interviewerId")
     public int getInterviewerId() {
         return interviewerId;

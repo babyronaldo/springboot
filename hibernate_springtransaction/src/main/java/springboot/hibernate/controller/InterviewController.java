@@ -16,11 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springboot.hibernate.entity.Candidate;
@@ -55,8 +51,6 @@ public class InterviewController {
         Candidate candidate = candidateService.find(id);
         candidateMap.addAttribute("candidate", candidate);
         Interview interview = new Interview();
-//        interview.setCandidate(candidate);
-//        interview.setInterviewer(interviewerService.findInterviewerbyUserName("admin"));
         interviewMap.addAttribute("interview", interview);
 
         return "interviewAdd";
@@ -73,46 +67,16 @@ public class InterviewController {
         interview.setInterviewerId(interviewer.getInterviewerId());
         interviewService.create(interview);
 
-//        candidate.getInterviews().add(interview);
-//        candidateService.save(candidate);
-
         return "redirect:/interview/index";
     }
 
-    // add interview from exist candidate
-//    @RequestMapping(value = "/addfrom/{id}", method = RequestMethod.GET)
-//    public String addfrom(@PathVariable(value = "id") int id, ModelMap modelMap) {
-//        Candidate candidate = candidateService.find(id);
-//        // modelMap.addAttribute("candidate", candidate);
-//        Interview interview = new Interview();
-//        interview.setCandidate(candidate);
-//        modelMap.addAttribute("interview", interview);
-//
-//        return "addInterviewFromCandidate";
-//    }
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String viewByCandidateId(@PathVariable(value = "id") int id, ModelMap modelMap) {
+	    List<Interview> interviewList = interviewService.findByCandidateId(id);
+	    modelMap.addAttribute("interviewList", interviewList);
 
-//    @RequestMapping(value = "/addfrom", method = RequestMethod.POST)
-//    public String addfrom(@ModelAttribute(value = "interview") @Valid Interview interview, BindingResult bindingResult,
-//                          RedirectAttributes redirectAttributes) {
-//        InterviewValidator interviewValidator = new InterviewValidator();
-//        interviewValidator.validate(interview, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("message", "Please fill out the form above to add new Interview!");
-//            return "addInterviewFromCandidate";
-//        } else {
-//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//            String name = auth.getName();
-//            Interviewer i = this.interviewerService.findInterviewerbyUserName(name);
-//
-//            interview.setInterviewer(i);
-//            // interview.setCandidate(c); @PathVariable(value = "id") int id,
-//            // Candidate c = this.candidateService.find(id);
-//
-//            interviewService.create(interview);
-//            redirectAttributes.addFlashAttribute("message", "Add an Interview form exist Candidate successful!!!");
-//            return "redirect:/interview.html";
-//        }
-//    }
+	    return "interviewForCandidate";
+    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") int id, RedirectAttributes redirectAttributes) {

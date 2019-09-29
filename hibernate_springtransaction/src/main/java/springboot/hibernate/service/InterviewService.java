@@ -44,4 +44,7 @@ public interface InterviewService {
     public List<Interview> Result(boolean result);
 
     public List<Interview> Source(String source);
+
+    public List<Interview> findByCandidateId(int id);
+
 }

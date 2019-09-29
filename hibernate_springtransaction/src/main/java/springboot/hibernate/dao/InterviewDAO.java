@@ -14,7 +14,7 @@ public interface InterviewDAO {
 
     public List<Interview> findAll();
 
-    // public List<Interview> findByInterviewID(int id);
+     public List<Interview> findByCandidateId(int id);
 
     public Interview find(int id);
 

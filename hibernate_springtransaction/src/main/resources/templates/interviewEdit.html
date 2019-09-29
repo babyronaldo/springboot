@@ -46,8 +46,8 @@
 <form th:action="@{/interview/edit}" th:object="${interview}" th:method="POST">
     <fieldset>
         <input type="text" th:field="*{interviewId}" th:value="*{interviewId}" th:readonly="true" th:hidden="true"/>
-        <input type="text" th:field="*{candidate.candidateId}" th:value="*{candidate.candidateId}" th:readonly="true" />
-        <input type="text" th:field="*{interviewer.interviewerId}" th:value="*{interviewer.interviewerId}" th:readonly="true"/>
+        <input type="text" th:field="*{candidateId}" th:value="*{candidateId}" th:readonly="true" />
+        <input type="text" th:field="*{interviewerId}" th:value="*{interviewerId}" th:readonly="true"/>
         <input type="date" th:field="*{date}" th:value="*{date}" />
         <input type="text" th:field="*{position}" th:value="*{position}" />
         <input type="text" th:field="*{iqTest}" th:value="*{iqTest}" />

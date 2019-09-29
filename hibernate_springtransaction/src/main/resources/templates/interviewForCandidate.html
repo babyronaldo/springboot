@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Interview List</title>
+     
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+     
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+<br></br>
+<table border="1">         
+    <tr>             
+        <th>Candidate</th>
+        <th>Interviewer</th>
+        <th>Date</th>
+        <th>IQ Test</th>
+        <th>Technical Test</th>
+        <th>TOEIC Test</th>
+        <th>Position</th>
+        <th>Project</th>
+        <th>Comment</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="i : ${interviewList}">             
+        <td th:utext="${i.candidate.name}">..</td>
+        <td th:utext="${i.interviewer.name}">..</td>
+        <td th:utext="${i.date}">..</td>
+        <td th:utext="${i.iqTest}">..</td>
+        <td th:utext="${i.techTest}">..</td>
+        <td th:utext="${i.toeic}">..</td>
+        <td th:utext="${i.position}">..</td>
+        <td th:utext="${i.source}">..</td>
+        <td th:utext="${i.comment}">..</td>
+        <td>
+            <a th:href="@{'/interview/edit/' + ${i.interviewId}}">Edit</a>
+            <a th:href="@{'/interview/delete/' + ${i.interviewId}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -132,4 +132,9 @@ public class InterviewServiceImpl implements InterviewService {
         return interviewDAO.Source(source);
     }
 
+    @Override
+    public List<Interview> findByCandidateId(int id) {
+        return interviewDAO.findByCandidateId(id);
+    }
+
 }

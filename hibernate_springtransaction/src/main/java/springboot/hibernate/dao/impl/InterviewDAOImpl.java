@@ -51,13 +51,15 @@ public class InterviewDAOImpl implements InterviewDAO {
         return interviewList;
 //        return sessionFactory.getCurrentSession().createCriteria(Interview.class).list();
     }
-    //
-    // @Override
-    // public List<Interview> findByInterviewID(int id)
-    // {
-    // // TODO Auto-generated method stub
-    // return
-    // }
+
+    @Override
+    public List<Interview> findByCandidateId(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        String queryString = "from Interview i where i.isDeleted is null and i.candidateId = " + id;
+
+        List<Interview> interviewList = session.createQuery(queryString, Interview.class).getResultList();
+        return interviewList;
+    }
 
     @Override
     public Interview find(int id) {
