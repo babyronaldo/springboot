@@ -8,7 +8,7 @@ import springboot.hibernate.entity.Interview;
 public interface InterviewDAO {
     public void create(Interview interview);
 
-    public void remove(Interview interview);
+    public void remove(int id);
 
     public void edit(Interview interview);
 

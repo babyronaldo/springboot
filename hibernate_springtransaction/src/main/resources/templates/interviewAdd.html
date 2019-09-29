@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create new Interview</title>  
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+    <h2>Create new Interview</h2>
+<form th:action="@{'/interview/add/' + ${candidate.candidateId}}" th:object="${interview}" th:method="POST">
+    <fieldset>
+        <div>
+            <label>Date</label>
+            <input type="date" th:field="*{date}"/>
+        </div>
+        <div>
+            <label>Position</label>
+            <input type="text" th:field="*{position}"/>
+        </div>
+        <div>
+            <label>IQ Test</label>
+            <input type="text" th:field="*{iqTest}"/>
+        </div>
+        <div>
+            <label>Tech Test</label>
+            <input type="text" th:field="*{techTest}"/>
+        </div>
+        <div>
+            <label>TOEIC</label>
+            <input type="text" th:field="*{toeic}"/>
+        </div>
+        <div>
+            <label>Result</label>
+            <input type="text" th:field="*{result}"/>
+        </div>
+        <div>
+            <label>Source</label>
+            <input type="text" th:field="*{source}"/>
+        </div>
+        <div>
+            <label>Notes</label>
+            <input type="text" th:field="*{notes}"/>
+        </div>
+        <div>
+            <label>Commnet</label>
+            <input type="text" th:field="*{comment}"/>
+        </div>
+        <div th:hidden="true">
+            <label>Is Deleted</label>
+            <input type="text" th:field="*{isDeleted}"/>
+        </div>
+
+        <input type="submit" value="Create"/>
+    </fieldset>
+</form>
+</body>
+</html>

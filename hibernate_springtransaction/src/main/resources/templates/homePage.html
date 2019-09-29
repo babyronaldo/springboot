@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Candidate List</title>
+    <title>Home page</title>
      
     <style>
         th, td {
@@ -13,6 +13,8 @@
  
 <body>
 <th:block th:include="/_menu"></th:block>
-    <a th:href="@{/candidatePage}">Candidate Page</a>
+    <a th:href="@{candidate/index}">Candidate Page</a>
+<br>
+    <a th:href="@{interview/index}">Interview Page</a>
 </body>
 </html>

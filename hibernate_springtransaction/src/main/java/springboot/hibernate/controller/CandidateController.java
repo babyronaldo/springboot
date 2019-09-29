@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -28,21 +29,21 @@ import springboot.hibernate.service.CandidateService;
 
 @EnableWebMvc
 @Controller
-@RequestMapping(value = "/candidate**")
+@RequestMapping(value = "/candidate")
 public class CandidateController {
 
     @Autowired(required = true)
     private CandidateService candidateService;
-    // @Autowired(required = true)
-    // private CandidateValidator candidateValidator;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String homePage() {
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String candidateIndex(Model model) {
+        List<Candidate> list = candidateService.findAll();
+        model.addAttribute("candidateList", list);
 
         return "candidatePage";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    //    @RequestMapping(method = RequestMethod.GET)
     // public String index(ModelMap modelMap, int offset)
     // {
     // offset=1;
@@ -142,7 +143,7 @@ public class CandidateController {
     public String add(ModelMap modelMap) {
         modelMap.addAttribute("candidate", new Candidate());
 
-        return "addCandidate";
+        return "candidateAdd";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -160,7 +161,7 @@ public class CandidateController {
             // candidate.setManager(m);
 
             candidateService.create(candidate);
-            return "redirect:/candidate.html";
+            return "redirect:/candidate/index";
         }
     }
 
@@ -216,7 +217,7 @@ public class CandidateController {
             candidateService.delete(id);
             redirectAttributes.addFlashAttribute("message", "Delete Applicant Successful");
         }
-        return "redirect:/candidate";
+        return "redirect:/candidate/index";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -239,7 +240,7 @@ public class CandidateController {
         // Manager m = this.managerService.findManagerbyUserName(name);
         // candidate.setManager(m);
         candidateService.edit(candidate);
-        return "redirect:/candidateEdit";
+        return "redirect:/candidate/index";
 //        }
     }
     // @RequestMapping(value = "*", method = RequestMethod.GET)

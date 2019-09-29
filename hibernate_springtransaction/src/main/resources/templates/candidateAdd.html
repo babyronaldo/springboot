@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create new Candidate</title>  
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+    <h2>Create new Candidate</h2>
+<form th:action="@{/candidate/add}" th:object="${candidate}" th:method="POST">
+    <fieldset>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Skill</label>
+            <input type="text" th:field="*{skill}"/>
+        </div>
+        <div>
+            <label>University</label>
+            <input type="text" th:field="*{uniName}"/>
+        </div>
+        <div>
+            <label>GPA</label>
+            <input type="text" th:field="*{gpa}"/>
+        </div>
+        <div>
+            <label>Graduated Year</label>
+            <input type="text" th:field="*{graduateYear}"/>
+        </div>
+        <div>
+            <label>Day of Birth</label>
+            <input type="text" th:field="*{dayOfBirth}"/>
+        </div>
+        <div>
+            <label>Degree</label>
+            <input type="text" th:field="*{degree}"/>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" th:field="*{email}"/>
+        </div>
+        <div>
+            <label>Phone</label>
+            <input type="text" th:field="*{phone}"/>
+        </div>
+        <div>
+            <label>Address</label>
+            <input type="text" th:field="*{address}"/>
+        </div>
+        <div th:hidden="true">
+            <label>Is Deleted</label>
+            <input type="text" th:field="*{isDeleted}"/>
+        </div>
+
+        <input type="submit" value="Create"/>
+    </fieldset>
+</form>
+</body>
+</html>

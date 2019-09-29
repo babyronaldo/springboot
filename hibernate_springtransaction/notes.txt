@@ -1,0 +1,29 @@
+https://stackoverflow.com/questions/39792142/hibernate-jpa-field-accreditation-company-id-doesnt-have-a-default-value-err
+
+@Transactional
+public Company updateCompany(Company company, final CompanyDto form) {
+    company.getCompanyObjects().clear();
+    company.getCompanyObjects().addAll(form.getCompanyObjects());
+    for(CompanyObject obj : company.getCompanyObjects()){
+       obj.setCompany(company);
+    }
+    return companyRepository.save(company);
+}
+
+Note the @ManyToOne annotation in the CompanyObject. If I understand correctly, you want to assign one or more CompanyObject to a Company, thus you have to have a @ManyToOne annotated Company typed field in the CompanyObject.
+
+Now, if you want to save these objects, first save the Company instance, then iterate over the list of CompanyObjects, set the previously saved company instance, and then save the CompanyObjects, something like this:
+
+Company company = new Company();
+companyDao.persist(company);
+
+List<CompanyObject> companyObjects = new ArrayList<>();
+// populate the list somehow
+// ...
+
+for(CompanyObject obj: companyObjects){
+    obj.setCompany(company);
+    companyObjectDao.persist(obj);
+}
+
+https://stackoverflow.com/questions/46015073/create-instance-of-the-entity-in-the-many-side-of-manytoone-relationship

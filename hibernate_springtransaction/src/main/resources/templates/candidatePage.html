@@ -12,6 +12,10 @@
 </head>
  
 <body>
+<th:block th:include="/_menu"></th:block>
+<div>
+    <a th:href="@{'/candidate/add'}">Create new Candidate</a>
+</div>
 <table border="1">         
     <tr>             
         <th>Id</th>                    
@@ -27,8 +31,9 @@
         <td th:utext="${candidate.name}">..</td>                    
         <td th:utext="${candidate.email}">..</td>
         <td>
-            <a th:href="@{'/edit/' + ${candidate.candidateId}}">Edit</a>
-            <a th:href="@{'/delete/' + ${candidate.candidateId}}">Delete</a>
+            <a th:href="@{'/candidate/edit/' + ${candidate.candidateId}}">Edit</a>
+            <a th:href="@{'/candidate/delete/' + ${candidate.candidateId}}">Delete</a>
+            <a th:href="@{'/interview/add/' + ${candidate.candidateId}}">Interview</a>
         </td>
     </tr>
 </table>

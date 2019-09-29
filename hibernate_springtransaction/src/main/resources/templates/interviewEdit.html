@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Interview Info</title>  
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+     
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+    <h2>Candidate Information</h2>
+<table border="1">
+    <tr>            
+        <th>Interview Id</th>
+        <th>Candidate</th>
+        <th>Interviewer</th>
+        <th>Date</th>
+        <th>Position</th>
+        <th>IQ Test</th>
+        <th>Technical Test</th>
+        <th>TOEIC Test</th>
+        <th>Result</th>
+        <th>Project</th>
+        <th>Notes</th>
+        <th>Comment</th>
+        <th>Is Deleted</th>
+    </tr>
+    <td th:utext="${interview.interviewId}">..</td>
+    <td th:utext="${interview.candidate.name}">..</td>
+    <td th:utext="${interview.interviewer.name}">..</td>
+    <td th:utext="${interview.date}">..</td>
+    <td th:utext="${interview.position}">..</td>
+    <td th:utext="${interview.iqTest}">..</td>
+    <td th:utext="${interview.techTest}">..</td>
+    <td th:utext="${interview.toeic}">..</td>
+    <td th:utext="${interview.result}">..</td>
+    <td th:utext="${interview.source}">..</td>
+    <td th:utext="${interview.notes}">..</td>
+    <td th:utext="${interview.comment}">..</td>
+    <td th:utext="${interview.isDeleted}">..</td>
+</table>
+<form th:action="@{/interview/edit}" th:object="${interview}" th:method="POST">
+    <fieldset>
+        <input type="text" th:field="*{interviewId}" th:value="*{interviewId}" th:readonly="true" th:hidden="true"/>
+        <input type="text" th:field="*{candidate.candidateId}" th:value="*{candidate.candidateId}" th:readonly="true" />
+        <input type="text" th:field="*{interviewer.interviewerId}" th:value="*{interviewer.interviewerId}" th:readonly="true"/>
+        <input type="date" th:field="*{date}" th:value="*{date}" />
+        <input type="text" th:field="*{position}" th:value="*{position}" />
+        <input type="text" th:field="*{iqTest}" th:value="*{iqTest}" />
+        <input type="text" th:field="*{techTest}" th:value="techTest" />
+        <input type="text" th:field="*{toeic}" th:value="*{toeic}" />
+        <input type="text" th:field="*{result}" th:value="*{result}" />
+        <input type="text" th:field="*{source}" th:value="*{source}" />
+        <input type="text" th:field="*{notes}" th:value="*{notes}" />
+        <input type="text" th:field="*{comment}" th:value="*{comment}" />
+        <input type="text" th:field="*{isDeleted}" th:value="*{isDeleted}" />
+
+        <input type="submit" value="SAVE" />
+    </fieldset>
+</form>
+</body>
+</html>

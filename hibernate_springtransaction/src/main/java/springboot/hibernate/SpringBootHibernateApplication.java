@@ -19,15 +19,15 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @SpringBootApplication
-
 @EnableAutoConfiguration(exclude = { //
         DataSourceAutoConfiguration.class, //
         DataSourceTransactionManagerAutoConfiguration.class, //
-        HibernateJpaAutoConfiguration.class })
+        HibernateJpaAutoConfiguration.class})
 @EntityScan("dao")
 public class SpringBootHibernateApplication {
     @Autowired
     private Environment env;
+
     public static void main(String[] args) {
         SpringApplication.run(SpringBootHibernateApplication.class, args);
     }
@@ -60,7 +60,7 @@ public class SpringBootHibernateApplication {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
         // Package contain entity classes
-        factoryBean.setPackagesToScan(new String[] { "springboot.hibernate.entity" });
+        factoryBean.setPackagesToScan(new String[]{"springboot.hibernate.entity"});
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();

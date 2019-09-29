@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +23,17 @@ public class InterviewDAOImpl implements InterviewDAO {
     @Override
     public void create(Interview interview) {
         // TODO Auto-generated method stub
-        sessionFactory.getCurrentSession().persist(interview);
+        sessionFactory.getCurrentSession().merge(interview);
     }
 
     @Override
-    public void remove(Interview interview) {
-        // TODO Auto-generated method stub
-        sessionFactory.getCurrentSession().delete(interview);
+    public void remove(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        String queryString = "UPDATE Interview i SET i.isDeleted = 1 WHERE i.interviewId = :id";
+        Query query = session.createQuery(queryString);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        //        sessionFactory.getCurrentSession().delete(interview);
     }
 
     @Override
@@ -40,8 +45,11 @@ public class InterviewDAOImpl implements InterviewDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Interview> findAll() {
-        // TODO Auto-generated method stub
-        return sessionFactory.getCurrentSession().createCriteria(Interview.class).list();
+        String query = "from Interview i where i.isDeleted is null";
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Interview> interviewList = session.createQuery(query, Interview.class).getResultList();
+        return interviewList;
+//        return sessionFactory.getCurrentSession().createCriteria(Interview.class).list();
     }
     //
     // @Override
