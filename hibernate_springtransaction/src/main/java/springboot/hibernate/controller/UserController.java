@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import springboot.hibernate.entity.Role;
 import springboot.hibernate.entity.User;
+import springboot.hibernate.service.RoleService;
 import springboot.hibernate.service.UserService;
 
 @EnableWebMvc
@@ -22,6 +24,9 @@ import springboot.hibernate.service.UserService;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
@@ -47,6 +52,9 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "Your username is already exist!!!");
             return "redirect:/user/add";
         } else {
+            Role role =  roleService.find(3);
+            user.setRole(role);
+            user.setRoleId(role.getRoleId());
             userService.create(user);
             redirectAttributes.addFlashAttribute("message", "Add User Successful!!!");
             return "redirect:/user/index";

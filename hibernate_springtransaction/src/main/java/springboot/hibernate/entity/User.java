@@ -4,17 +4,10 @@ package springboot.hibernate.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,32 +23,35 @@ public class User implements java.io.Serializable {
     private String username;
     private String password;
     private String position;
-    private String rolename;
+    private Integer roleId;
     private Boolean isEnabled;
     private Set<Interview> interviews = new HashSet<Interview>(0);
+    private Role role;
 
     public User() {
     }
 
-    public User(String name, String username, String password, String position, String rolename,
-                Boolean isEnabled) {
+    public User(String name, String username, String password, String position, Integer roleId,
+                Boolean isEnabled, Role role) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.position = position;
-        this.rolename = rolename;
+        this.roleId = roleId;
         this.isEnabled = isEnabled;
+        this.role = role;
     }
 
-    public User(String name, String username, String password, String position, String rolename, Boolean isEnabled,
-                Set<Interview> interviews) {
+    public User(String name, String username, String password, String position, Integer roleId, Boolean isEnabled,
+                Set<Interview> interviews, Role role) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.position = position;
-        this.rolename = rolename;
+        this.roleId = roleId;
         this.isEnabled = isEnabled;
         this.interviews = interviews;
+        this.role = role;
     }
 
     @Id
@@ -110,16 +106,6 @@ public class User implements java.io.Serializable {
         this.position = position;
     }
 
-    @NotEmpty
-    @Column(name = "rolename", nullable = false, length = 30)
-    public String getRolename() {
-        return this.rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     public Set<Interview> getInterviews() {
         return this.interviews;
@@ -136,5 +122,25 @@ public class User implements java.io.Serializable {
 
     public void setIsEnabled(Boolean enabled) {
         isEnabled = enabled;
+    }
+
+    @NotNull
+    @Column(name = "roleId")
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleId", referencedColumnName = "roleId", nullable = false, insertable = false, updatable = false)
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

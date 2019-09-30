@@ -33,7 +33,7 @@
         <td th:utext="${user.username}">..</td>                    
         <td th:utext="${user.password}">..</td>                    
         <td th:utext="${user.position}">..</td>
-        <td th:utext="${user.rolename}">..</td>
+        <td th:utext="${user.role.roleName}">..</td>
         <td th:utext="${user.isEnabled}">..</td>
         <td>
             <a th:href="@{'/user/edit/' + ${user.userId}}">Edit</a>

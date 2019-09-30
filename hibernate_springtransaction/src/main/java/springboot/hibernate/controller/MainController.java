@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
-//@RequestMapping(value = "/home")
+@RequestMapping(value = "/main")
 public class MainController {
     @Autowired
     private CandidateService candidateService;
@@ -33,16 +33,21 @@ public class MainController {
     private CandidateController candidateController;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
+    public String index() {
 
-        return "homePage";
+        return "redirect:/main/login.html";
     }
 
-//    @RequestMapping(value = "/candidatePage", method = RequestMethod.GET)
-//    public String candidatePage(ModelMap modelMap) {
-//        modelMap.addAttribute("candidateList", candidateService.findAll());
-//
-//        return "candidatePage";
-//    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "logout", required = false) String logout, ModelMap mm) {
+        if (error != null) {
+            mm.addAttribute("msg", "Invalid username and password! Do you have account?");
+        }
+        if (logout != null) {
+            mm.addAttribute("msg", "You've been logged out successfully.");
+        }
+        return "login";
+    }
 
 }

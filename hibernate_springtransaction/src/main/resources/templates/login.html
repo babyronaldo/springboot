@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+     
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+     
+</head>
+ 
+<body>
+<div id="loginForm">
+    <div class="headLoginForm" style="color:blue;">Welcome to TMA - Interview Tracking</div>
+    <div class="fieldLogin">
+        <form method="POST" action="<c:url value='/j_spring_security_check' />">
+            <label>Username</label>
+            <br>
+            <input type="text" name="username" class="login">
+            <br>
+            <label>Password</label>
+            <br>
+            <input type="password" name="password" class="login">
+            <br>
+            <input type="submit" class="button" value="Login">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        <br>
+        ${msg }
+    </div>
+</div>
+</body>
+</html>
