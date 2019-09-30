@@ -20,7 +20,7 @@
 <table border="1">         
     <tr>             
         <th>Candidate</th>
-        <th>Interviewer</th>
+        <th>User</th>
         <th>Date</th>
         <th>IQ Test</th>
         <th>Technical Test</th>
@@ -32,7 +32,7 @@
     </tr>
     <tr th:each="i : ${interviewList}">             
         <td th:utext="${i.candidate.name}">..</td>
-        <td th:utext="${i.interviewer.name}">..</td>
+        <td th:utext="${i.user.name}">..</td>
         <td th:utext="${i.date}">..</td>
         <td th:utext="${i.iqTest}">..</td>
         <td th:utext="${i.techTest}">..</td>

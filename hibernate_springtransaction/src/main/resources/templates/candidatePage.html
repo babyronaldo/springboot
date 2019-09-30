@@ -32,9 +32,9 @@
         <td th:utext="${candidate.email}">..</td>
         <td>
             <a th:href="@{'/candidate/edit/' + ${candidate.candidateId}}">Edit</a>
-            <a th:href="@{'/candidate/delete/' + ${candidate.candidateId}}">Delete</a>
             <a th:href="@{'/interview/add/' + ${candidate.candidateId}}">Interview</a>
-            <a th:href="@{'/interview/view/' + ${candidate.candidateId}}">Interview</a>
+            <a th:href="@{'/interview/candidateView/' + ${candidate.candidateId}}">Logs</a>
+            <a th:href="@{'/candidate/delete/' + ${candidate.candidateId}}">Delete</a>
         </td>
     </tr>
 </table>

@@ -242,4 +242,13 @@ public class InterviewDAOImpl implements InterviewDAO {
         }
     }
 
+    @Override
+    public List<Interview> findByUserId(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        String queryString = "from Interview i where i.isDeleted is null and i.userId = " + id;
+
+        List<Interview> interviewList = session.createQuery(queryString, Interview.class).getResultList();
+        return interviewList;
+    }
+
 }

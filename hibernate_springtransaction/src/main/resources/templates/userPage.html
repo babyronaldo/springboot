@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate List</title>
+     
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+     
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+<div>
+    <a th:href="@{'/user/add'}">Create new User</a>
+</div>
+<table border="1">         
+    <tr>             
+        <th>Id</th>                    
+        <th>Name</th>                    
+        <th>Username</th>                    
+        <th>Password</th>
+        <th>Title</th>                
+        <th>Role</th>                
+        <th>Is Enabled</th>                
+    </tr>
+            
+    <tr th:each="user : ${userList}">             
+        <td th:utext="${user.userId}">..</td>                    
+        <td th:utext="${user.name}">..</td>                    
+        <td th:utext="${user.username}">..</td>                    
+        <td th:utext="${user.password}">..</td>                    
+        <td th:utext="${user.position}">..</td>
+        <td th:utext="${user.rolename}">..</td>
+        <td th:utext="${user.isEnabled}">..</td>
+        <td>
+            <a th:href="@{'/user/edit/' + ${user.userId}}">Edit</a>
+            <a th:href="@{'/user/delete/' + ${user.userId}}">Delete</a>
+            <a th:href="@{'/interview/userView/' + ${user.userId}}">Log</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

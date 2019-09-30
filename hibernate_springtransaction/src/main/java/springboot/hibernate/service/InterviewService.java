@@ -47,4 +47,6 @@ public interface InterviewService {
 
     public List<Interview> findByCandidateId(int id);
 
+    public List<Interview> findByUserId(int id);
+
 }

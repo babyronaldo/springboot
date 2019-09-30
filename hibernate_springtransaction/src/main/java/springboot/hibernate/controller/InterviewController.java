@@ -1,30 +1,23 @@
 package springboot.hibernate.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springboot.hibernate.entity.Candidate;
 import springboot.hibernate.entity.Interview;
-import springboot.hibernate.entity.Interviewer;
+import springboot.hibernate.entity.User;
 import springboot.hibernate.service.CandidateService;
 import springboot.hibernate.service.InterviewService;
-import springboot.hibernate.service.InterviewerService;
+import springboot.hibernate.service.UserService;
 
 
 @EnableWebMvc
@@ -36,7 +29,7 @@ public class InterviewController {
     @Autowired
     private CandidateService candidateService;
     @Autowired
-    private InterviewerService interviewerService;
+    private UserService userService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
@@ -62,20 +55,28 @@ public class InterviewController {
         interview.setCandidate(candidate);
         interview.setCandidateId(id);
 
-        Interviewer interviewer = interviewerService.findInterviewerbyUserName("admin");
-        interview.setInterviewer(interviewer);
-        interview.setInterviewerId(interviewer.getInterviewerId());
+        User user = userService.findUserByUserName("admin");
+        interview.setUser(user);
+        interview.setUserId(user.getUserId());
         interviewService.create(interview);
 
         return "redirect:/interview/index";
     }
 
-    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/candidateView/{id}", method = RequestMethod.GET)
     public String viewByCandidateId(@PathVariable(value = "id") int id, ModelMap modelMap) {
 	    List<Interview> interviewList = interviewService.findByCandidateId(id);
 	    modelMap.addAttribute("interviewList", interviewList);
 
-	    return "interviewForCandidate";
+	    return "interviewHistory";
+    }
+
+    @RequestMapping(value = "/userView/{id}", method = RequestMethod.GET)
+    public String viewByUserId(@PathVariable(value = "id") int id, ModelMap modelMap) {
+	    List<Interview> interviewList = interviewService.findByUserId(id);
+	    modelMap.addAttribute("interviewList", interviewList);
+
+	    return "interviewHistory";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

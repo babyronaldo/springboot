@@ -137,4 +137,9 @@ public class InterviewServiceImpl implements InterviewService {
         return interviewDAO.findByCandidateId(id);
     }
 
+    @Override
+    public List<Interview> findByUserId(int id) {
+        return interviewDAO .findByUserId(id);
+    }
+
 }

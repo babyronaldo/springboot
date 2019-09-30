@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create new User</title>  
+    <style>
+        th, td {
+                padding: 5px;
+        }
+    </style>
+</head>
+ 
+<body>
+<th:block th:include="/_menu"></th:block>
+    <h2>Create new User</h2>
+<form th:action="@{/user/add}" th:object="${user}" th:method="POST">
+    <fieldset>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Username</label>
+            <input type="text" th:field="*{username}"/>
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="text" th:field="*{password}"/>
+        </div>
+        <div>
+            <label>Title</label>
+            <input type="text" th:field="*{position}"/>
+        </div>
+        <div>
+            <label>Role</label>
+            <input type="text" th:field="*{rolename}"/>
+        </div>
+        <div>
+            <label>Is Enabled</label>
+            <input type="text" th:field="*{isEnabled}"/>
+        </div>
+
+        <input type="submit" value="Create"/>
+    </fieldset>
+</form>
+</body>
+</html>

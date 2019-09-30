@@ -48,4 +48,6 @@ public interface InterviewDAO {
 
     public List<Interview> Source(String source);
 
+    public List<Interview> findByUserId(int id);
+
 }
