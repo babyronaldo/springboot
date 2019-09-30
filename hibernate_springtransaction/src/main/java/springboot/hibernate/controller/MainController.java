@@ -1,53 +1,99 @@
 package springboot.hibernate.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import springboot.hibernate.dao.BankAccountDAO;
-import springboot.hibernate.entity.Candidate;
-import springboot.hibernate.exception.BankTransactionException;
-import springboot.hibernate.form.SendMoneyForm;
 import springboot.hibernate.service.CandidateService;
+import springboot.hibernate.utils.WebUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
-@RequestMapping(value = "/main")
+//@RequestMapping(value = "/main")
 public class MainController {
     @Autowired
     private CandidateService candidateService;
     @Autowired
     private CandidateController candidateController;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
+    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+    public String welcomePage(Model model) {
+        model.addAttribute("title", "Welcome");
+        model.addAttribute("message", "This is welcome page!");
+        return "homePage";
+    }
 
-        return "redirect:/main/login.html";
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String adminPage(Model model, Principal principal) {
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+
+        return "adminPage";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam(value = "logout", required = false) String logout, ModelMap mm) {
-        if (error != null) {
-            mm.addAttribute("msg", "Invalid username and password! Do you have account?");
-        }
-        if (logout != null) {
-            mm.addAttribute("msg", "You've been logged out successfully.");
-        }
-        return "login";
+    public String loginPage(Model model) {
+
+        return "loginPage";
     }
+
+    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "logoutSuccessfulPage";
+    }
+
+    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public String userInfo(Model model, Principal principal) {
+
+        // Sau khi user login thanh cong se co principal
+        String userName = principal.getName();
+
+        System.out.println("User Name: " + userName);
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+
+        return "userInfoPage";
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accessDenied(Model model, Principal principal) {
+
+        if (principal != null) {
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+            String userInfo = WebUtils.toString(loginedUser);
+
+            model.addAttribute("userInfo", userInfo);
+
+            String message = "Hi " + principal.getName() //
+                    + "<br> You do not have permission to access this page!";
+            model.addAttribute("message", message);
+
+        }
+
+        return "403Page";
+    }
+
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String login(@RequestParam(value = "error", required = false) String error,
+//                        @RequestParam(value = "logout", required = false) String logout, ModelMap mm) {
+//        if (error != null) {
+//            mm.addAttribute("msg", "Invalid username and password! Do you have account?");
+//        }
+//        if (logout != null) {
+//            mm.addAttribute("msg", "You've been logged out successfully.");
+//        }
+//        return "login";
+//    }
 
 }

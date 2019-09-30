@@ -15,4 +15,6 @@ public interface RoleDAO {
 
     public Role find(int id);
 
+    public List<String> getRoleNames(int userId);
+
 }

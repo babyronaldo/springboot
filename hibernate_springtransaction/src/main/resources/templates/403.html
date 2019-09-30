@@ -1,8 +1,17 @@
-<div xmlns:th="http://www.thymeleaf.org"
-     style="border: 1px solid #ccc;padding:5px;margin-bottom:5px;">
-    <h2>403 error</h2>
-
-    <div>
-        <a th:href="@{/main/index}">Return to Home page</a>
-    </div>
-</div>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+</head>
+ 
+<body>
+    <!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+ 
+    <h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
+ 
+    <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+     
+</body>
+ 
+</html>

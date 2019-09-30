@@ -1,22 +1,24 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Home page</title>
-     
-    <style>
-        th, td {
-                padding: 5px;
-        }
-    </style>
-     
-</head>
+    <head>
+         <title th:utext="${title}"></title>
+        <style>
+            th, td {
+                    padding: 5px;
+            }
+        </style>
+         
+    </head>
  
-<body>
-<th:block th:include="/_menu"></th:block>
-<a th:href="@{candidate/index}">Candidate Page</a>
-<br>
-<a th:href="@{interview/index}">Interview Page</a>
-<br>
-<a th:href="@{user/index}">User Page</a>
-</body>
+    <body>
+    <th:block th:include="/_menu"></th:block>
+
+        <h2>Message : <span th:utext="${message}"></span></h2>
+
+        <a th:href="@{candidate/index}">Candidate Page</a>
+        <br>
+        <a th:href="@{interview/index}">Interview Page</a>
+        <br>
+        <a th:href="@{user/index}">User Page</a>
+    </body>
 </html>
