@@ -12,14 +12,13 @@ import springboot.hibernate.utils.WebUtils;
 import java.security.Principal;
 
 @Controller
-//@RequestMapping(value = "/main")
 public class MainController {
     @Autowired
     private CandidateService candidateService;
     @Autowired
     private CandidateController candidateController;
 
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
@@ -38,7 +37,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
+    public String login() {
 
         return "loginPage";
     }
@@ -81,19 +80,7 @@ public class MainController {
 
         }
 
-        return "403Page";
+        return "403";
     }
-
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(@RequestParam(value = "error", required = false) String error,
-//                        @RequestParam(value = "logout", required = false) String logout, ModelMap mm) {
-//        if (error != null) {
-//            mm.addAttribute("msg", "Invalid username and password! Do you have account?");
-//        }
-//        if (logout != null) {
-//            mm.addAttribute("msg", "You've been logged out successfully.");
-//        }
-//        return "login";
-//    }
 
 }
