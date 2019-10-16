@@ -44,8 +44,6 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute(value = "user") @Valid User user,
                       BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-//        InterviewerValidator interviewerValidator = new InterviewerValidator();
-//        interviewerValidator.validate(interviewer, bindingResult);
         if (bindingResult.hasErrors()) {
             return "userAdd";
         } else if (userService.findUserByUserName(user.getUsername()) != null) {
@@ -85,8 +83,6 @@ public class UserController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@ModelAttribute(value = "user") @Valid User user,
                        BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-//        InterviewerValidator interviewerValidator = new InterviewerValidator();
-//        interviewerValidator.validate(interviewer, bindingResult);
         if (bindingResult.hasErrors()) {
 
             return "userEdit";

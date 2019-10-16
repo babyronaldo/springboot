@@ -16,6 +16,7 @@
 <br></br>
 <div>
     <a th:href="@{'/interview/add'}">Create new Interview</a>
+    <div style="color: red; font-size: 25px;text-align:center;" th:if="${message}" th:text="${message}"></div>
 </div>
 <table border="1">         
     <tr>             

@@ -46,21 +46,22 @@
 <form th:action="@{/interview/edit}" th:object="${interview}" th:method="POST">
     <fieldset>
         <input type="text" th:field="*{interviewId}" th:value="*{interviewId}" th:readonly="true" th:hidden="true"/>
-        <input type="text" th:field="*{candidateId}" th:value="*{candidateId}" th:readonly="true" />
+        <input type="text" th:field="*{candidateId}" th:value="*{candidateId}" th:readonly="true"/>
         <input type="text" th:field="*{userId}" th:value="*{userId}" th:readonly="true"/>
-        <input type="date" th:field="*{date}" th:value="*{date}" />
-        <input type="text" th:field="*{position}" th:value="*{position}" />
-        <input type="text" th:field="*{iqTest}" th:value="*{iqTest}" />
-        <input type="text" th:field="*{techTest}" th:value="techTest" />
-        <input type="text" th:field="*{toeic}" th:value="*{toeic}" />
-        <input type="text" th:field="*{result}" th:value="*{result}" />
-        <input type="text" th:field="*{source}" th:value="*{source}" />
-        <input type="text" th:field="*{notes}" th:value="*{notes}" />
-        <input type="text" th:field="*{comment}" th:value="*{comment}" />
-        <input type="text" th:field="*{isDeleted}" th:value="*{isDeleted}" />
+        <input type="date" th:field="*{date}" th:value="*{date}"/>
+        <input type="text" th:field="*{position}" th:value="*{position}"/>
+        <input type="text" th:field="*{iqTest}" th:value="*{iqTest}"/>
+        <input type="text" th:field="*{techTest}" th:value="techTest"/>
+        <input type="text" th:field="*{toeic}" th:value="*{toeic}"/>
+        <input type="text" th:field="*{result}" th:value="*{result}"/>
+        <input type="text" th:field="*{source}" th:value="*{source}"/>
+        <input type="text" th:field="*{notes}" th:value="*{notes}"/>
+        <input type="text" th:field="*{comment}" th:value="*{comment}"/>
+        <input type="text" th:field="*{isDeleted}" th:value="*{isDeleted}"/>
 
-        <input type="submit" value="SAVE" />
+        <input type="submit" value="SAVE"/>
     </fieldset>
 </form>
+<div style="color: red; font-size: 25px;text-align:center;" th:if="${message}">${message}</div>
 </body>
 </html>
